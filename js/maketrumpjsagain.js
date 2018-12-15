@@ -27,6 +27,7 @@ twttr.ready(function (twttr) {
     });
 });
 
+// Applied styling to twitter
 function trumpVision(document) {
     var retweets = document.querySelectorAll('.timeline-Tweet-text');
     retweets.forEach(function (node) {
@@ -37,7 +38,7 @@ function trumpVision(document) {
     })
 }
 
-
+// Funcion injects stylesheet into document head element.
 function addStyleSheet(document) {
     var head = document.getElementsByTagName('head')[0];
     var link = document.createElement('link');
@@ -48,6 +49,7 @@ function addStyleSheet(document) {
     head.appendChild(link);
 }
 
+// Provides random color code
 function getRandomColor() {
     var letters = '0123456789ABCDEF';
     var color = '#';
