@@ -42,7 +42,7 @@ function addStyleSheet(document) {
     var link = document.createElement('link');
     link.rel = 'stylesheet';
     link.type = 'text/css';
-    link.href = 'css/trumpvision.css';
+    link.href = 'https://cdn.jsdelivr.net/gh/ErvinsS/maketrumpjsagain/css/trumpvision.css';
     link.media = 'all';
     head.appendChild(link);
 }
