@@ -24,6 +24,7 @@ twttr.ready(function (twttr) {
         // injects stylesheet into iframe head.
         addStyleSheet(contentDocument);
         trumpVision(contentDocument);
+        observe(contentDocument);
     });
 });
 
@@ -31,10 +32,7 @@ twttr.ready(function (twttr) {
 function trumpVision(document) {
     var retweets = document.querySelectorAll('.timeline-Tweet-text');
     retweets.forEach(function (node) {
-        if (node.parentNode) { // (in)sanity check
-            node.style = 'color: ' + getRandomColor();
-            node.classList.add("trump-tweet");
-        }
+        makeElementTrumpAgain(node);
     })
 }
 
@@ -57,4 +55,35 @@ function getRandomColor() {
         color += letters[Math.floor(Math.random() * 16)];
     }
     return color;
+}
+
+function makeElementTrumpAgain(element) {
+    element.style = 'color: ' + getRandomColor();
+    element.classList.add("trump-tweet");
+}
+
+function observe(document) {
+    var targetNode = document.getElementsByClassName("timeline-TweetList");
+    var config = { childList: true };
+
+    // Callback function to execute when mutations are observed
+    var callback = function (mutationsList, observer) {
+        for (var mutation of mutationsList) {
+            console.log(mutation);
+            if (mutation.type == 'childList') {
+                for(var element of mutation.addedNodes){
+                    var ps = element.querySelectorAll("p.timeline-Tweet-text");
+                    for (var p of ps){
+                        makeElementTrumpAgain(p);
+                    }
+                }
+            }
+        }
+    };
+
+    // Create an observer instance linked to the callback function
+    var observer = new MutationObserver(callback);
+
+    // Start observing the target node for configured mutations
+    observer.observe(targetNode[0], config);
 }
